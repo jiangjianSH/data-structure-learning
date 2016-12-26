@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Stack Javascript Implementation</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+        function Stack() {
+          this.dataSource = [];
+          this.top = 0;
+          this.push = push;
+          this.pop = pop;
+          this.peek = peek;
+          this.clear = clear;
+          this.length = length;
+          this.empty = empty;
+        }
+
+        function push(element){
+          this.dataSource[this.top++] = element;
+        }
+
+        function pop() {
+          if(this.top == 0) return null;
+          return this.dataSource[--this.top];
+        }
+
+        function peek() {
+          if(this.top == 0) return null;
+          return this.dataSource[this.top - 1];
+        }
+
+        function clear() {
+          delete this.dataSource;
+          this.dataSource = [];
+          this.top = 0;
+        }
+
+        function length() {
+          return this.top;
+        }
+
+        function empty() {
+          return this.top <= 0 ? true : false;
+        }
+
+        function mulBase(num, base) {
+          var s = new Stack();
+          do {
+              s.push(num % base);
+              num = Math.floor(num / base);
+          }while(num > 0);
+          var value = "";
+          while(s.length() > 0) {
+            value += s.pop();
+          }
+          return value;
+        }
+
+        function isPalindrome(word) {
+          var s = new Stack();
+          for(var i = 0; i < word.length; i++) {
+              s.push(word[i]);
+          }
+
+          for(var i = 0; i < word.length; i++) {
+            if(word[i] != s.pop())  {
+              return false;
+            }
+          }
+
+          return true;
+        }
+
+        function factorial(n) {
+            var s = new Stack();
+            while(n > 1) {
+              s.push(n--);
+            }
+
+            var result = 1;
+            while(s.length() > 0) {
+              result *= s.pop();
+            }
+            return result;
+        }
+    </script>
+  </body>
+</html>

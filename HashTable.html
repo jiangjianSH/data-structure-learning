@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hash Table Javascript Implementation</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+        function HashTable() {
+          this.table = new Array(127);
+          for(var i = 0; i < this.table.length; i++) {
+            this.table[i] = [];
+          }
+          this.betterHash= betterHash;
+          this.showDistro = showDistro;
+          this.put = put;
+          this.get = get;
+        }
+
+        function Node(key, data) {
+          this.key = key;
+          this.data = data;
+        }
+
+        function betterHash(data) {
+            var total = 0;
+            for(var i = 0; i < data.length; i++) {
+              total += total * 37 + data.charCodeAt(i);
+            }
+            return total % this.table.length;
+        }
+
+        function put(key, data) {
+          var pos = this.betterHash(key);
+          var index = 0;
+          while(this.table[pos][index] != undefined && this.table[pos][index].key != key) {
+              index++;
+          }
+          this.table[pos][index] = new Node(key, data);
+        }
+
+        function get(key) {
+          var pos = this.betterHash(key);
+          var index = 0;
+          for(var i = 0; i < this.table[pos].length; i++) {
+            if(this.table[pos][i].key == key) {
+              return this.table[pos][i].data;
+            }
+          }
+          return undefined;
+        }
+
+        function showDistro() {
+          var n = 0;
+          for(var i = 0; i < this.table.length; i++) {
+              for(var j = 0; j < this.table[i].length; i++) {
+                console.log(this.table[i][j].key + "--->" + this.table[i][j].data);
+              }
+          }
+        }
+    </script>
+  </body>
+</html>

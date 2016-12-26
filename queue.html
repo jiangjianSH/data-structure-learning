@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Queue Javascript Implementation</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+        function PriorityQueue() {
+          this.dataSource = [];
+          this.front = 0;
+          this.end = 0;
+          this.enqueue = enqueue;
+          this.dequeue = dequeue;
+          this.peek = peek;
+          this.clear = clear;
+          this.length = length;
+          this.front = front;
+          this.back = back;
+          this.empty = empty;
+          this.toString = toString;
+        }
+
+        function enqueue(element) {
+          this.dataSource.push(element);
+        }
+
+        function dequeue() {
+          var priority = 0
+          for(var i = 1; i < this.dataSource.length; ++i) {
+            if(this.dataSource[i].code < this.dataSource[priority].code) {
+              priority = i;
+            }
+          }
+          return this.dataSource.splice(priority, 1);
+        }
+
+        function peek() {
+            return this.dataSourc[0];
+        }
+
+        function clear() {
+          delete this.dataSource;
+          this.dataSource= [];
+        }
+
+        function length(){
+          return this.dataSource.length;
+        }
+
+        function front() {
+          return this.dataSource[0];
+        }
+
+        function back() {
+          return this.dataSource[this.length() -1];
+        }
+
+        function empty() {
+          return this.length <= 0 ? false : true;
+        }
+
+        function toString() {
+          var retStr = "";
+          for(var i = 0; i < this.dataSource.length; ++i) {
+            retStr += this.dataSource[i].name + " code:" + this.dataSource[i].code + "\n";
+          }
+          return retStr;
+        }
+    </script>
+  </body>
+</html>

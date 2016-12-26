@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Javascript List Implementation</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+        function List() {
+          this.listSize = 0;
+          this.length = length;
+          this.dataStore = [];
+          this.pos = 0;
+          this.currPos = currPos;
+          this.clear = clear;
+          this.insert = insert;
+          this.append = append;
+          this.remove = remove;
+          this.front = front;
+          this.end = end;
+          this.find = find;
+          this.getElement = getElement;
+          this.moveTo = moveTo;
+          this.prev = prev;
+          this.next = next;
+          this.toString = toString;
+          this.contains = contains;
+        }
+
+        function append(element) {
+          this.dataStore[this.listSize++] = element;
+        }
+
+        function find(element) {
+          for(var i = 0; i < this.listSize; i++) {
+            if(this.dataStore[i] == element) {
+              return i;
+            }
+          }
+          return -1;
+        }
+
+        function remove(element) {
+          var index = this.find(element);
+          if(index == -1) return false;
+          this.dataStore.splice(index, 1);
+          --this.listSize;
+          return true;
+        }
+
+        function length() {
+          return this.listSize;
+        }
+
+        function  toString() {
+          return this.dataStore;
+        }
+
+        function currPos() {
+            return this.pos;
+        }
+
+        function  clear() {
+          delete this.dataStore;
+          this.dataStore = [];
+          this.listSize = 0;
+          this.pos = 0;
+        }
+
+        function insert(element, after){
+            var insertIndex = this.find(after);
+            if(insertIndex == -1) return false;
+            this.dataStore.splice(insertIndex + 1, 0, element);
+            return true;
+        }
+
+        function front() {
+          this.pos = 0;
+        }
+
+        function end() {
+          this.pos = this.listSize -1;
+        }
+
+        function getElement() {
+            return this.dataStore[this.pos];
+        }
+
+        function moveTo(position) {
+            this.pos = position;
+        }
+
+        function prev() {
+            if(this.pos > 0) --this.pos;
+        }
+
+        function next() {
+            if(this.pos -1 < this.listSize) ++this.pos;
+        }
+
+        function contains(element) {
+            var index = this.find(element);
+            if(index == -1) return false;
+            return true;
+        }
+
+        function insertOnlyLargest(element, list) {
+          var isLargest = true;
+          for(list.front(); list.currPos() < list.length(); list.next()) {
+            if(element <= list.getElement()) {
+              isLargest = false;
+              break;
+            }
+          }
+          if(isLargest) {
+            list.append(element);
+            return true;
+          }
+          return false;
+        }
+    </script>
+  </body>
+</html>

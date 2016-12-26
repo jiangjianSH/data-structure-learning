@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Set Javascript Implementation</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+        function Set() {
+          this.dataSource = [];
+          this.add = add;
+          this.remove = remove;
+          this.size = size;
+          this.union = union;
+          this.intersect = intersect;
+          this.difference = difference;
+          this.show = show;
+          this.isContain = isContain;
+          this.subset = subset;
+        }
+
+        function add(element) {
+          if(this.dataSource.indexOf(element) < 0) {
+            this.dataSource.push(element);
+            return true;
+          }
+          return false;
+        }
+
+        function remove(element) {
+          var pos = this.dataSource.indexOf(element);
+          if(pos > -1) {
+            this.dataSource.splice(pos, 1);
+            return true;
+          }
+          return false;
+        }
+
+        function show() {
+          return this.dataSource;
+        }
+
+        function size() {
+          return this.dataSource.length;
+        }
+
+        function isContain(element) {
+          return this.dataSource.indexOf(element) > -1 ? true : false;
+        }
+
+        function union(others) {
+            var result = new Set();
+            for(var i = 0; i < this.dataSource.length; i++) {
+              result.add(this.dataSource[i]);
+            }
+
+            for(var i = 0; i < others.dataSource.length; i++) {
+              result.add(others.dataSource[i]);
+            }
+            return result;
+        }
+
+        function intersect(others) {
+            var result = new Set();
+            for(var i = 0; i < this.dataSource.length; i++) {
+                if(others.isContain(this.dataSource[i])) {
+                  result.add(this.dataSource[i]);
+                }
+            }
+            return result;
+        }
+
+        function difference(others) {
+            var result = new Set();
+            for(var i = 0; i < this.dataSource.length; i++) {
+              if(!others.isContain(this.dataSource[i])) {
+                result.add(this.dataSource[i]);
+              }
+            }
+            return result;
+        }
+
+        function subset(others) {
+            if(others.size() > this.size()) return false;
+            for(var i = 0; i < others.size(); i++) {
+                if(!this.isContain(others.dataSource[i])) return false;
+            }
+            return true;
+        }
+    </script>
+  </body>
+</html>
